@@ -1,0 +1,40 @@
+---
+  title: "My Website"
+---
+
+Understanding Food Waste
+
+Here is me reading in and looking at Food Waste data
+```{r, include=TRUE}
+# Read In Food Waste Data
+food_waste <- read.csv("C:/Users/fwswa/Downloads/R Training 2024/Food Waste Exploration/food_waste.csv")
+# View Data
+View(food_waste)
+```
+
+Combine data from Household estimate of food waste column in .csv file
+```{r, include=TRUE}
+Household_data <- food_waste$`Household.estimate..kg.capita.year.`
+combined_household <- paste(Household_data, collapse = " ")
+```
+
+Box Plot of Household Food Waste
+```{r, include=TRUE}
+library(tidyverse)
+ggplot(food_waste, aes(x = combined_household, y = Household.estimate..kg.capita.year.))+
+  geom_boxplot()
+```
+
+
+Clean Up the Graph
+```{r, include=TRUE}
+ggplot(food_waste, aes(x = combined_household, y = `Household.estimate..kg.capita.year.`))+
+  geom_boxplot() +
+  # remove numbering on X Axis
+  theme(axis.text.x = element_blank())+
+  labs(
+    title = "Average Houshold Food Waste (kg/Capita/Year)",
+    x = "Average of All Countries", y = " Average Household Waste (kg/Capita/Year)"
+  ) +
+  theme_bw()
+```
